@@ -96,7 +96,7 @@ fun main(args: Array<String>) {
 
     println("The tree root is ${tree.root?.key}")
     println()
-    println("The tree height if ${tree.height(tree.root)}")
+    println("The tree height is ${tree.height(tree.root)}")
     println()
 
     for (key in 1..10) {
