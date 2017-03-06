@@ -50,20 +50,55 @@ class BinarySearchTree<T: Comparable<T>>  {
         }
         return null
     }
+
+    fun height (root: Node<T>?): Int {
+        if (root == null)
+            return 0
+        else {
+            var leftHeight = height(root.leftChild)
+            var rightHeight = height(root.rightChild)
+            if (leftHeight > rightHeight)
+                return leftHeight + 1
+            else
+                return rightHeight + 1
+        }
+    }
+
+    fun printLevel (root: Node<T>?, level: Int) {
+        if (root == null)
+            return
+        if (level == 1)
+            print("${root.key} ")
+        else {
+            printLevel(root.leftChild, level - 1)
+            printLevel(root.rightChild, level - 1)
+        }
+    }
+
+    fun printLevelOrderTraversal () {
+        val h = height(root)
+        
+        for (i in 1..h) {
+            printLevel(root, i)
+            println()
+        }
+    }
 }
 
 fun main(args: Array<String>) {
     val tree = BinarySearchTree<Int>()
+    tree.add(7)
+    tree.add(3)
     tree.add(4)
-    tree.add(6)
-    tree.add(1)
-    tree.add(9)
-    tree.add(2)
     tree.add(5)
+    tree.add(9)
+    tree.add(10)
 
-    var key = 1
     println("The tree root is ${tree.root?.key}")
     println()
+    println("The tree height if ${tree.height(tree.root)}")
+    println()
+
     for (key in 1..10) {
         println("Result for searching by the key $key is ${tree.search(key)?.key}")
         if (tree.search(key) != null) {
@@ -73,4 +108,8 @@ fun main(args: Array<String>) {
         }
         println()
     }
+
+    println("The tree looks like:")
+    tree.printLevelOrderTraversal()
+
 }
