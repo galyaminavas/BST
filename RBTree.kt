@@ -2,7 +2,7 @@ class RBTree<Key : Comparable<Key>, Value> {
     var root: RBNode<Key, Value>? = null
     var nodesCount: Int = 0
 
-    fun rotateLeft(node: RBNode<Key, Value>) { //called with "father"
+    fun rotateLeft(node: RBNode<Key, Value>) {
         var rightson: RBNode<Key, Value> = node.rightChild!! //right son
         node.rightChild = rightson.leftChild
         rightson.leftChild?.parent = node //son's left subtree
@@ -21,7 +21,7 @@ class RBTree<Key : Comparable<Key>, Value> {
 
     }
 
-    fun rotateRight(node: RBNode<Key, Value>) { //called with "grandfather"
+    fun rotateRight(node: RBNode<Key, Value>) {
         var leftson: RBNode<Key, Value> = node.leftChild!!
         node.leftChild = leftson.rightChild
         leftson.rightChild?.parent = node
