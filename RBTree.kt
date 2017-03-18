@@ -18,7 +18,6 @@ class RBTree<Key : Comparable<Key>, Value> {
             rightson.parent?.leftChild = rightson
         else
             rightson.parent?.rightChild = rightson
-
     }
 
     fun rotateRight(node: RBNode<Key, Value>) {
@@ -37,7 +36,6 @@ class RBTree<Key : Comparable<Key>, Value> {
             leftson.parent?.leftChild = leftson
         else
             leftson.parent?.rightChild = leftson
-
     }
 
     fun balance(node: RBNode<Key, Value>) {
@@ -111,7 +109,7 @@ class RBTree<Key : Comparable<Key>, Value> {
     }
 
     fun add(key: Key, value: Value) {
-        //if node with this key already exist - do not add new one
+        //if node with this key already exists - do not add new one
         if (search(key) != null)
             return
         var current: RBNode<Key, Value>? = root
@@ -141,7 +139,6 @@ class RBTree<Key : Comparable<Key>, Value> {
                 current = current.leftChild
             }
         }
-        //return balance(newRBNode)
     }
 
     fun height(node: RBNode<Key, Value>?): Int {
