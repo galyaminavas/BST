@@ -1,115 +1,84 @@
-class Node<T: Comparable<T>> (var key: T) {
-    var parent: Node<T>? = null
-    var leftChild: Node<T>? = null
-    var rightChild: Node<T>? = null
-}
+import java.util.Scanner
 
-class BinarySearchTree<T: Comparable<T>>  {
-    var root: Node<T>? = null
-
-    fun add (key: T) {
-        var current: Node<T>? = root
-        val newNode = Node(key)
-        if (root == null) {
-            root = newNode
-            return
-        }
-        while (current != null) {
-            if (key > current.key) {
-                if (current.rightChild == null) {
-                    current.rightChild = newNode
-                    newNode.parent = current
-                    return
-                }
-                current = current.rightChild
-            }
-            else {
-                if (current.leftChild == null) {
-                    current.leftChild = newNode
-                    newNode.parent = current
-                    return
-                }
-                current = current.leftChild
-            }
-        }
-    }
-
-    fun search (key: T): Node<T>? {
-        var current: Node<T>? = root
-        if ((current?.key == key) || (current == null)) {
-            return current
-        }
-        while (current != null) {
-            if (key == current.key)
-                return current
-            if (key > current.key) {
-                current = current.rightChild
-            } else {
-                current = current.leftChild
-            }
-        }
-        return null
-    }
-
-    fun height (root: Node<T>?): Int {
-        if (root == null)
-            return 0
-        else {
-            var leftHeight = height(root.leftChild)
-            var rightHeight = height(root.rightChild)
-            if (leftHeight > rightHeight)
-                return leftHeight + 1
-            else
-                return rightHeight + 1
-        }
-    }
-
-    fun printLevel (root: Node<T>?, level: Int) {
-        if (root == null)
-            return
-        if (level == 1)
-            print("${root.key} ")
-        else {
-            printLevel(root.leftChild, level - 1)
-            printLevel(root.rightChild, level - 1)
-        }
-    }
-
-    fun printLevelOrderTraversal () {
-        val h = height(root)
-        
-        for (i in 1..h) {
-            printLevel(root, i)
-            println()
-        }
-    }
-}
+/*interface
+}*/
 
 fun main(args: Array<String>) {
-    val tree = BinarySearchTree<Int>()
-    tree.add(7)
-    tree.add(3)
-    tree.add(4)
-    tree.add(5)
-    tree.add(9)
-    tree.add(10)
+    val tree = RBTree<Int, String>()
 
-    println("The tree root is ${tree.root?.key}")
-    println()
-    println("The tree height is ${tree.height(tree.root)}")
-    println()
+    val input = Scanner(System.`in`)
+    var switcher: String? = ""
 
-    for (key in 1..10) {
-        println("Result for searching by the key $key is ${tree.search(key)?.key}")
-        if (tree.search(key) != null) {
-            println("Parent: ${tree.search(key)?.parent?.key}")
-            println("Left child: ${tree.search(key)?.leftChild?.key}")
-            println("Right child: ${tree.search(key)?.rightChild?.key}")
+    menu@
+    while (switcher != "q") {
+        println("What do you want from me?")
+        println("a - to add new node")
+        println("b - to search node by key")
+        println("p - to print tree")
+        println("i - information about the tree")
+        println("q - to exit")
+        switcher = readLine()
+
+        when (switcher) {
+            "a" -> {
+                println("\nYou now can add new nodes in the tree. \nRemember to type data in format: \n'key' 'value' \n(keys must be Integer type)")
+                println("If you want to go back to the menu, enter 'm'")
+
+                while (input.hasNext()) {
+                    if (input.hasNextInt()) {
+                        var keybuff: Int = input.nextInt()
+                        var valuebuff: String = input.next()
+                        tree.add(keybuff, valuebuff)
+                    }
+                    else {
+                        var buff: String = input.next()
+                        if (buff == "m") {
+                            continue@menu
+                        }
+                        else {
+                            println("Sorry, I don't understand you\n")
+                            continue@menu
+                        }
+                    }
+                }
+            }
+            "b" -> {
+                print("\nEnter the key you want to find: ") //error if not Integer
+                var keybuff: Int = input.nextInt()
+                if (tree.search(keybuff) != null) {
+                    println("Value for the key: ${tree.search(keybuff)?.value}")
+                    println("Colour: ${tree.search(keybuff)?.colour}")
+                    println("Parent: ${tree.search(keybuff)?.parent?.value}")
+                    println("Left child: ${tree.search(keybuff)?.leftChild?.value}")
+                    println("Right child: ${tree.search(keybuff)?.rightChild?.value}\n")
+                }
+                else {
+                    println("There is no node with this key\n")
+                }
+                continue@menu
+            }
+             "p" -> {
+                 //[x] means, that x is red
+                 if (tree.root != null) {
+                     println("\nThe tree looks like:")
+                     tree.printLevelOrderTraversal()
+                     println()
+                 }
+                 else {
+                     println("\nThe tree is empty\n")
+                 }
+                 continue@menu
+             }
+             "i" -> {
+                 println("\nThe tree root is ${tree.root?.value}")
+                 println("There are ${tree.nodesCount} nodes in the tree")
+                 println("The tree height is ${tree.height(tree.root)}\n")
+                 continue@menu
+             }
+             "q" -> {
+                 println("Our work here is done.")
+             }
+             else -> println("Sorry, I don't understand you\n")
         }
-        println()
     }
-
-    println("The tree looks like:")
-    tree.printLevelOrderTraversal()
-
 }
