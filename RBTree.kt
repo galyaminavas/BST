@@ -1,6 +1,10 @@
-class RBTree<Key : Comparable<Key>, Value> {
+package tree.rbtree
+
+import tree.*
+
+class RBTree<Key : Comparable<Key>, Value>: Tree<Key, Value> {
     var root: RBNode<Key, Value>? = null
-    var nodesCount: Int = 0
+    internal var nodesCount: Int = 0
 
     fun rotateLeft(node: RBNode<Key, Value>) {
         var rightson: RBNode<Key, Value> = node.rightChild!! //right son
@@ -91,7 +95,7 @@ class RBTree<Key : Comparable<Key>, Value> {
         }
     }
 
-    fun search(key: Key): RBNode<Key, Value>? {
+    override fun search(key: Key): RBNode<Key, Value>? {
         var current: RBNode<Key, Value>? = root
         if ((current?.key == key) || (current == null)) {
             return current
@@ -108,7 +112,7 @@ class RBTree<Key : Comparable<Key>, Value> {
         return null
     }
 
-    fun add(key: Key, value: Value) {
+    override fun add(key: Key, value: Value) {
         //if node with this key already exists - do not add new one
         if (search(key) != null)
             return
@@ -139,6 +143,11 @@ class RBTree<Key : Comparable<Key>, Value> {
                 current = current.leftChild
             }
         }
+        //return balance(newRBNode)
+    }
+
+    override fun delete(key: Key) {
+        //
     }
 
     fun height(node: RBNode<Key, Value>?): Int {

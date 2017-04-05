@@ -1,7 +1,6 @@
 import java.util.Scanner
 
-/*interface
-}*/
+import tree.rbtree.*
 
 fun main(args: Array<String>) {
     val tree = RBTree<Int, String>()
@@ -58,7 +57,7 @@ fun main(args: Array<String>) {
                 continue@menu
             }
              "p" -> {
-                 //[x] means, that x is red
+                 //[x] means that x is read
                  if (tree.root != null) {
                      println("\nThe tree looks like:")
                      tree.printLevelOrderTraversal()
