@@ -58,29 +58,64 @@ class BSTree<Key : Comparable<Key>, Value>: Tree<Key, Value> {
         return min(x.leftChild!!)
     }
 
-    private fun recursiveRemove(subroot: BSNode<Key, Value>, key: Key) {
-        if (key < subroot.key)
-            recursiveRemove(subroot.leftChild!!, key)
-        else if (key > subroot.key)
-            recursiveRemove(subroot.rightChild!!, key)
-        else if (subroot.leftChild != null && subroot.rightChild != null) {
-            subroot.key = min(subroot.rightChild!!).key
-            subroot.value = min(subroot.rightChild!!).value
-        }
-        else if (subroot.leftChild != null) {
-            subroot.key = subroot.leftChild!!.key
-            subroot.value = subroot.leftChild!!.value
-        }
+    private fun recursiveRemove(root: BSNode<Key, Value>?, key: Key): BSNode<Key, Value>? {
+        if (root == null)
+            return null
+        if (root.key > key)
+            root.leftChild = recursiveRemove(root.leftChild, key)
+        else if (root.key < key)
+            root.rightChild = recursiveRemove(root.rightChild, key)
         else {
-            subroot.key = subroot.rightChild!!.key
-            subroot.value = subroot.rightChild!!.value
-        }
+            if (root.leftChild == null)
+                return root.rightChild
+            else if (root.rightChild == null)
+                return root.leftChild
+            //if node has both children
+            var temp: BSNode<Key, Value> = min(root.rightChild!!)
+            root.key = temp.key
+            root.value = temp.value
+            root.rightChild = recursiveRemove(root.rightChild, root.key)
+            }
+            return root
     }
 
     override fun delete(key: Key) {
         //if there is no such key
         if (search(key) == null)
             return
-        recursiveRemove(root!!, key)
+        recursiveRemove(root, key)
+    }
+
+    fun height(node: BSNode<Key, Value>?): Int {
+        if (node == null)
+            return 0
+        else {
+            var leftHeight = height(node.leftChild)
+            var rightHeight = height(node.rightChild)
+            if (leftHeight > rightHeight)
+                return leftHeight + 1
+            else
+                return rightHeight + 1
+        }
+    }
+
+    fun printLevel(root: BSNode<Key, Value>?, level: Int) {
+        if (root == null)
+            return
+        if (level == 1) {
+            print("${root.value} ")
+        }
+        else {
+            printLevel(root.leftChild, level - 1)
+            printLevel(root.rightChild, level - 1)
+        }
+    }
+
+    fun printLevelOrderTraversal() {
+        val h = height(root)
+        for (i in 1..h) {
+            printLevel(root, i)
+            println()
+        }
     }
 }

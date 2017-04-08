@@ -1,4 +1,25 @@
-import java.util.Scanner
+import tree.bstree.*
+
+
+
+fun main(args: Array<String>) {
+    val tree = BSTree<Int, String>()
+    tree.add(50, "50")
+    tree.add(30, "30")
+    tree.add(20, "20")
+    tree.add(40, "40")
+    tree.add(70, "70")
+    tree.add(60, "60")
+    tree.add(80, "80")
+    tree.printLevelOrderTraversal()
+    tree.delete(40)
+    tree.printLevelOrderTraversal()
+    println(tree.search(30)?.rightChild)
+    println(tree.search(40))
+
+}
+
+/*import java.util.Scanner
 
 import tree.rbtree.*
 
@@ -56,28 +77,28 @@ fun main(args: Array<String>) {
                 }
                 continue@menu
             }
-             "p" -> {
-                 //[x] means that x is read
-                 if (tree.root != null) {
-                     println("\nThe tree looks like:")
-                     tree.printLevelOrderTraversal()
-                     println()
-                 }
-                 else {
-                     println("\nThe tree is empty\n")
-                 }
-                 continue@menu
-             }
-             "i" -> {
-                 println("\nThe tree root is ${tree.root?.value}")
-                 println("There are ${tree.nodesCount} nodes in the tree")
-                 println("The tree height is ${tree.height(tree.root)}\n")
-                 continue@menu
-             }
-             "q" -> {
-                 println("Our work here is done.")
-             }
-             else -> println("Sorry, I don't understand you\n")
+            "p" -> {
+                //[x] means that x is read
+                if (tree.root != null) {
+                    println("\nThe tree looks like:")
+                    tree.printLevelOrderTraversal()
+                    println()
+                }
+                else {
+                    println("\nThe tree is empty\n")
+                }
+                continue@menu
+            }
+            "i" -> {
+                println("\nThe tree root is ${tree.root?.value}")
+                println("There are ${tree.nodesCount} nodes in the tree")
+                println("The tree height is ${tree.height(tree.root)}\n")
+                continue@menu
+            }
+            "q" -> {
+                println("Our work here is done.")
+            }
+            else -> println("Sorry, I don't understand you\n")
         }
     }
-}
+}*/
