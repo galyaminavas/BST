@@ -12,8 +12,9 @@ fun main(args: Array<String>) {
     tree.add(60, "60")
     tree.add(80, "80")
     tree.printLevelOrderTraversal()
-    tree.delete(40)
+    tree.delete(50)
     tree.printLevelOrderTraversal()
+    println(tree.root!!.key)
     println(tree.search(30)?.rightChild)
     println(tree.search(40))
 

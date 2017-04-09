@@ -6,7 +6,7 @@ class RBTree<Key : Comparable<Key>, Value>: Tree<Key, Value> {
     var root: RBNode<Key, Value>? = null
     internal var nodesCount: Int = 0
 
-    fun rotateLeft(node: RBNode<Key, Value>) {
+    private fun rotateLeft(node: RBNode<Key, Value>) {
         var rightson: RBNode<Key, Value> = node.rightChild!! //right son
         node.rightChild = rightson.leftChild
         rightson.leftChild?.parent = node //son's left subtree
@@ -24,7 +24,7 @@ class RBTree<Key : Comparable<Key>, Value>: Tree<Key, Value> {
             rightson.parent?.rightChild = rightson
     }
 
-    fun rotateRight(node: RBNode<Key, Value>) {
+    private fun rotateRight(node: RBNode<Key, Value>) {
         var leftson: RBNode<Key, Value> = node.leftChild!!
         node.leftChild = leftson.rightChild
         leftson.rightChild?.parent = node
@@ -42,7 +42,7 @@ class RBTree<Key : Comparable<Key>, Value>: Tree<Key, Value> {
             leftson.parent?.rightChild = leftson
     }
 
-    fun balance(node: RBNode<Key, Value>) {
+    private fun balance(node: RBNode<Key, Value>) {
         if (node == root) {
             node.colour = RBNode.Colour.Black
             return
@@ -146,11 +146,50 @@ class RBTree<Key : Comparable<Key>, Value>: Tree<Key, Value> {
         //return balance(newRBNode)
     }
 
-    override fun delete(key: Key) {
-        //
+    private fun remove(subroot: RBNode<Key, Value>?, key: Key): RBNode<Key, Value> {
+        if (root?.key == key) {
+
+        }
+        return root!!
     }
 
-    fun height(node: RBNode<Key, Value>?): Int {
+    override fun delete(key: Key) {
+        //if there is no such key
+        if (search(key) == null)
+            return
+        val buff: RBNode<Key, Value> = search(key)!!
+        //no children
+        if (buff.leftChild == null && buff.rightChild == null) {
+            //if node is root
+            if (root == buff) {
+                root = null
+                return
+            }
+            else {
+                //node is left child
+                if (buff.parent?.leftChild == buff) {
+                    buff.parent?.leftChild = null
+                    if (buff.colour == RBNode.Colour.Red)
+                        return
+                }
+                //node is right child
+                else {
+                    buff.parent?.rightChild = null
+                    if (buff.colour == RBNode.Colour.Red)
+                        return
+                }
+            }
+        }
+        //if one child
+        else if (buff.leftChild == null) {
+            //node is left child
+            if (buff.parent?.leftChild == buff) {
+
+            }
+        }
+    }
+
+    internal fun height(node: RBNode<Key, Value>?): Int {
         if (node == null)
             return 0
         else {
@@ -163,7 +202,7 @@ class RBTree<Key : Comparable<Key>, Value>: Tree<Key, Value> {
         }
     }
 
-    fun printLevel(root: RBNode<Key, Value>?, level: Int) {
+    internal fun printLevel(root: RBNode<Key, Value>?, level: Int) {
         if (root == null)
             return
         if (level == 1) {
@@ -178,7 +217,7 @@ class RBTree<Key : Comparable<Key>, Value>: Tree<Key, Value> {
             }
     }
 
-    fun printLevelOrderTraversal() {
+    internal fun printLevelOrderTraversal() {
         val h = height(root)
         for (i in 1..h) {
             printLevel(root, i)

@@ -10,7 +10,7 @@ class RBNode<Key : Comparable<Key>, Value>(var key: Key, var value: Value): Node
     var rightChild: RBNode<Key, Value>? = null
     var colour: Colour = Colour.Black
 
-    fun grandparent(): RBNode<Key, Value>? {
+    internal fun grandparent(): RBNode<Key, Value>? {
         //if (this != null && this.parent != null) {
         if (this.parent != null) {
             val p: RBNode<Key, Value>? = this.parent
@@ -20,7 +20,7 @@ class RBNode<Key : Comparable<Key>, Value>(var key: Key, var value: Value): Node
             return null
     }
 
-    fun uncle(): RBNode<Key, Value>? {
+    internal fun uncle(): RBNode<Key, Value>? {
         val g: RBNode<Key, Value>? = this.grandparent() ?: return null
         if (this.parent == g?.leftChild)
             return g?.rightChild

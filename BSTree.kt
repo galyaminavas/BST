@@ -83,10 +83,33 @@ class BSTree<Key : Comparable<Key>, Value>: Tree<Key, Value> {
         //if there is no such key
         if (search(key) == null)
             return
+        if (this.root?.key == key) {
+            if (this.root!!.leftChild == null && this.root!!.rightChild == null) {
+                this.root = null
+                return
+            }
+            else if (this.root!!.rightChild == null) {
+                this.root!!.leftChild?.parent = null
+                this.root = this.root?.leftChild
+                return
+            }
+            else if (this.root!!.leftChild == null) {
+                this.root!!.rightChild?.parent = null
+                this.root = this.root?.rightChild
+                return
+            }
+            else {
+                //both children exist
+                val buff = min(this.root?.rightChild!!)
+                this.root?.key = buff.key
+                this.root?.value = buff.value
+                this.root?.rightChild = recursiveRemove(this.root?.rightChild, this.root!!.key)
+                return
+            }
+        }
         recursiveRemove(root, key)
     }
-
-    fun height(node: BSNode<Key, Value>?): Int {
+    internal fun height(node: BSNode<Key, Value>?): Int {
         if (node == null)
             return 0
         else {
@@ -99,7 +122,7 @@ class BSTree<Key : Comparable<Key>, Value>: Tree<Key, Value> {
         }
     }
 
-    fun printLevel(root: BSNode<Key, Value>?, level: Int) {
+    internal fun printLevel(root: BSNode<Key, Value>?, level: Int) {
         if (root == null)
             return
         if (level == 1) {
@@ -111,7 +134,7 @@ class BSTree<Key : Comparable<Key>, Value>: Tree<Key, Value> {
         }
     }
 
-    fun printLevelOrderTraversal() {
+    internal fun printLevelOrderTraversal() {
         val h = height(root)
         for (i in 1..h) {
             printLevel(root, i)
