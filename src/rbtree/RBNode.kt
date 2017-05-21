@@ -1,4 +1,4 @@
-package tree.rbtree
+package rbtree
 
 import tree.Node
 

@@ -1,22 +1,37 @@
-import tree.bstree.*
-
-
+import rbtree.*
 
 fun main(args: Array<String>) {
-    val tree = BSTree<Int, String>()
+    val tree = RBTree<Int, String>()
     tree.add(50, "50")
-    tree.add(30, "30")
-    tree.add(20, "20")
-    tree.add(40, "40")
-    tree.add(70, "70")
-    tree.add(60, "60")
-    tree.add(80, "80")
-    tree.printLevelOrderTraversal()
+    //tree.add(30, "30")
+    //tree.add(20, "20")
+    //tree.add(40, "40")
+    //tree.add(70, "70")
+    //tree.add(60, "60")
+    //tree.add(80, "80")
+    //tree.add(10, "10")
+    //tree.add(90, "90")
+    //tree.add(110, "110")
+    //tree.add(120,"120")
+    //tree.add(55, "55")
+    //tree.add(15, "15")
+    //tree.add(25, "25")
+    //tree.printLevelOrderTraversal()
+    //tree.delete(40)
+    //tree.delete(30)
+    //tree.delete(15)
+    //tree.delete(110)
+    //tree.delete(120)
+    //tree.delete(80)
     tree.delete(50)
+    //tree.delete(20)
+    //tree.delete(70)
+    //tree.delete(10
     tree.printLevelOrderTraversal()
-    println(tree.root!!.key)
-    println(tree.search(30)?.rightChild)
-    println(tree.search(40))
+    //println(tree.root!!.key)
+    //println(tree.search(70)?.parent?.key)
+    //println(tree.search(30)?.rightChild)
+    //println(tree.search(40))
 
 }
 

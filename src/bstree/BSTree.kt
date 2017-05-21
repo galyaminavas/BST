@@ -1,4 +1,4 @@
-package tree.bstree
+package bstree
 
 import tree.*
 
@@ -83,32 +83,9 @@ class BSTree<Key : Comparable<Key>, Value>: Tree<Key, Value> {
         //if there is no such key
         if (search(key) == null)
             return
-        if (this.root?.key == key) {
-            if (this.root!!.leftChild == null && this.root!!.rightChild == null) {
-                this.root = null
-                return
-            }
-            else if (this.root!!.rightChild == null) {
-                this.root!!.leftChild?.parent = null
-                this.root = this.root?.leftChild
-                return
-            }
-            else if (this.root!!.leftChild == null) {
-                this.root!!.rightChild?.parent = null
-                this.root = this.root?.rightChild
-                return
-            }
-            else {
-                //both children exist
-                val buff = min(this.root?.rightChild!!)
-                this.root?.key = buff.key
-                this.root?.value = buff.value
-                this.root?.rightChild = recursiveRemove(this.root?.rightChild, this.root!!.key)
-                return
-            }
-        }
-        recursiveRemove(root, key)
+        this.root = recursiveRemove(this.root, key)
     }
+
     internal fun height(node: BSNode<Key, Value>?): Int {
         if (node == null)
             return 0
@@ -139,6 +116,41 @@ class BSTree<Key : Comparable<Key>, Value>: Tree<Key, Value> {
         for (i in 1..h) {
             printLevel(root, i)
             println()
+        }
+    }
+
+    private fun first(): BSNode<Key, Value>? {
+        var currNode = this.root
+        while (currNode?.leftChild != null)
+            currNode = currNode.leftChild
+        return currNode
+    }
+
+    private fun nextElement(node: BSNode<Key, Value>?): BSNode<Key, Value>? {
+        var currNode: BSNode<Key, Value>? = node ?: return null
+        if (currNode?.rightChild != null) {
+            currNode = currNode.rightChild
+            while (currNode?.leftChild != null)
+                currNode = currNode.leftChild
+        }
+        else {
+            while (currNode != null && currNode.key <= node.key)
+                currNode = currNode.parent
+        }
+        return currNode
+    }
+
+    override fun iterator(): Iterator<BSNode<Key, Value>> = object: Iterator<BSNode<Key, Value>> {
+        var node = first()
+
+        override fun next(): BSNode<Key, Value> {
+            val result = node
+            node = nextElement(node)
+            return result!!
+        }
+
+        override fun hasNext(): Boolean {
+            return node != null
         }
     }
 }

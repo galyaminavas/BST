@@ -1,4 +1,4 @@
-package tree.bstree
+package bstree
 
 import tree.Node
 
