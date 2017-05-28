@@ -1,46 +1,8 @@
 import rbtree.*
+import java.util.Scanner
 
 fun main(args: Array<String>) {
-    val tree = RBTree<Int, String>()
-    tree.add(50, "50")
-    //tree.add(30, "30")
-    //tree.add(20, "20")
-    //tree.add(40, "40")
-    //tree.add(70, "70")
-    //tree.add(60, "60")
-    //tree.add(80, "80")
-    //tree.add(10, "10")
-    //tree.add(90, "90")
-    //tree.add(110, "110")
-    //tree.add(120,"120")
-    //tree.add(55, "55")
-    //tree.add(15, "15")
-    //tree.add(25, "25")
-    //tree.printLevelOrderTraversal()
-    //tree.delete(40)
-    //tree.delete(30)
-    //tree.delete(15)
-    //tree.delete(110)
-    //tree.delete(120)
-    //tree.delete(80)
-    tree.delete(50)
-    //tree.delete(20)
-    //tree.delete(70)
-    //tree.delete(10
-    tree.printLevelOrderTraversal()
-    //println(tree.root!!.key)
-    //println(tree.search(70)?.parent?.key)
-    //println(tree.search(30)?.rightChild)
-    //println(tree.search(40))
-
-}
-
-/*import java.util.Scanner
-
-import tree.rbtree.*
-
-fun main(args: Array<String>) {
-    val tree = RBTree<Int, String>()
+    val tree = RBTree<Int, Int>()
 
     val input = Scanner(System.`in`)
     var switcher: String? = ""
@@ -57,13 +19,13 @@ fun main(args: Array<String>) {
 
         when (switcher) {
             "a" -> {
-                println("\nYou now can add new nodes in the tree. \nRemember to type data in format: \n'key' 'value' \n(keys must be Integer type)")
+                println("\nYou now can add new nodes in the tree. \nRemember to type data in format: \n'key' 'value' \n(keys && values must be Integer type)")
                 println("If you want to go back to the menu, enter 'm'")
 
                 while (input.hasNext()) {
                     if (input.hasNextInt()) {
                         var keybuff: Int = input.nextInt()
-                        var valuebuff: String = input.next()
+                        var valuebuff: Int = input.nextInt()
                         tree.add(keybuff, valuebuff)
                     }
                     else {
@@ -95,14 +57,17 @@ fun main(args: Array<String>) {
             }
             "p" -> {
                 //[x] means that x is read
-                if (tree.root != null) {
+                /*if (tree.root != null) {
                     println("\nThe tree looks like:")
                     tree.printLevelOrderTraversal()
                     println()
                 }
                 else {
                     println("\nThe tree is empty\n")
-                }
+                }*/
+                tree.printElements()
+                println()
+                println()
                 continue@menu
             }
             "i" -> {
@@ -117,4 +82,4 @@ fun main(args: Array<String>) {
             else -> println("Sorry, I don't understand you\n")
         }
     }
-}*/
+}

@@ -3,6 +3,7 @@ package rbtree
 import tree.Node
 
 class RBNode<Key : Comparable<Key>, Value>(var key: Key, var value: Value): Node<Key, Value>() {
+
     enum class Colour {Black, Red}
 
     var parent: RBNode<Key, Value>? = null

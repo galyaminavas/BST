@@ -3,7 +3,9 @@ package rbtree
 import tree.*
 
 class RBTree<Key : Comparable<Key>, Value>: Tree<Key, Value> {
+
     var root: RBNode<Key, Value>? = null
+
     internal var nodesCount: Int = 0
 
     private fun rotateLeft(node: RBNode<Key, Value>) {
@@ -339,5 +341,10 @@ class RBTree<Key : Comparable<Key>, Value>: Tree<Key, Value> {
         override fun hasNext(): Boolean {
             return node != null
         }
+    }
+
+    fun printElements() {
+        for (it in this)
+            print("${it.value} ")
     }
 }

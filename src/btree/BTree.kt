@@ -1,11 +1,13 @@
 package btree
 
+import java.util.*
+
 class BTree<Key : Comparable<Key>>(val t: Int) {
     var root: BNode<Key>? = BNode()
 
     fun add(key: Key) {
         //if node with this key already exists - do not add new one
-        if (search(key) != null)
+        if (this.search(key) != null)
             return
         if (root?.keys?.size == 2 * t - 1) {
             var newNode = BNode<Key>()
@@ -45,7 +47,8 @@ class BTree<Key : Comparable<Key>>(val t: Int) {
             if (i < subroot.keys.size && key == subroot.keys[i])
                 return subroot.keys[i]
             if (subroot.isLeaf())
-                subroot = null
+                return null
+                //subroot = null
             else
                 subroot = subroot.children[i]
         }
@@ -72,7 +75,37 @@ class BTree<Key : Comparable<Key>>(val t: Int) {
         child.keys.removeAt(t - 1)
     }
 
-    fun findKeyInNode(node: BNode<Key>, key: Key): Int {
+    fun print() {
+        var list: Queue<BNode<Key>> = LinkedList()
+        var listChar: Queue<Char> = LinkedList()
+
+        list.add(root)
+        listChar.add('\n')
+
+        var specSymbol = '\n'
+
+        while (!list.isEmpty()) {
+            val currNode = list.poll()
+
+            for (key in currNode.keys)
+                print(" $key ")
+
+            if (!currNode.isLeaf()) {
+                for (child in currNode.children) {
+                    list.add(child)
+                    listChar.add('|')
+                }
+            }
+            if (listChar.peek() == '\n') {
+                listChar.add(specSymbol)
+                print(listChar.poll())
+            }
+            print(listChar.poll())
+        }
+
+    }
+
+    /*fun findKeyInNode(node: BNode<Key>, key: Key): Int {
         var ind = 0
         while (ind < node.keys.size && node.keys[ind] < key)
             ind++
@@ -292,5 +325,5 @@ class BTree<Key : Comparable<Key>>(val t: Int) {
             else
                 root = root!!.children[0]
         }
-    }
+    }*/
 }

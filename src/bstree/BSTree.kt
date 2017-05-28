@@ -3,11 +3,12 @@ package bstree
 import tree.*
 
 class BSTree<Key : Comparable<Key>, Value>: Tree<Key, Value> {
+
     var root: BSNode<Key, Value>? = null
 
     override fun add(key: Key, value: Value) {
         //if node with this key already exists - do not add new one
-        if (search(key) != null)
+        if (this.search(key) != null)
             return
         var current: BSNode<Key, Value>? = root
         val newNode = BSNode(key, value)
@@ -152,5 +153,10 @@ class BSTree<Key : Comparable<Key>, Value>: Tree<Key, Value> {
         override fun hasNext(): Boolean {
             return node != null
         }
+    }
+
+    fun printElements() {
+        for (it in this)
+            print("${it.value} ")
     }
 }
