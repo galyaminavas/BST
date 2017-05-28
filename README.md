@@ -1,4 +1,5 @@
 (Search for every element of the tree)
+
 Random test for BST and BTree
 
 | Nodes count |	BST addition |	BST search	| BTree addition |	BTree search | BTree parameter |
