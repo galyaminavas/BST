@@ -26,7 +26,7 @@ Sorted test for BST and BTree
 | 1 000 000   | >30 min      | couldn't wait till addition was finished | 844 ms | 28 ms | 100 |
 | 1 000 000   |              |              | 2 s 79 ms      | 29 ms         | 500             |
 | 10 000 000  |              |              | 12 s 33 ms     | 244 ms        | 250             |
-| 10 000 000  |              |              | 13 s 594 ms    | 1 s 101 ms    | 330             |
+| 10 000 000  |              |              | 14 s 741 ms    | 212 ms        | 330             |
 | 10 000 000  |              |              | 22 s 492 ms    | 269 ms        | 500             |
 | 10 000 000  |              |              | 36 s 608 ms    | 267 ms        | 1000            |
 
